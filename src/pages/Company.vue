@@ -78,12 +78,6 @@
                         pageNumber: this.pagination.page,
                     }
                 })
-            },
-            hasDepartment(id, departmentsIds) {
-                console.log(id, departmentsIds)
-                return this.headers.findIndex(header => {
-                    return header.value === id
-                }) !== -1
             }
         }
     }
