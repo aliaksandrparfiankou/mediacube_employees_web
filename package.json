@@ -1,0 +1,64 @@
+{
+  "name": "mediacube_employers_web",
+  "version": "1.0.0",
+  "scripts": {
+    "serve": "cross-env NODE_ENV=development npm run build && cross-env NODE_ENV=development npm-run-all -p start serve:client",
+    "build": "npm run build:server -- --silent && npm run build:client -- --no-clean --silent",
+    "lint": "vue-cli-service lint",
+    "build:client": "vue-cli-service build",
+    "build:server": "cross-env WEBPACK_TARGET=node vue-cli-service build",
+    "serve:client": "vue-cli-service serve",
+    "start": "node scripts/start"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "express": "^4.16.4",
+    "http-proxy-middleware": "^0.19.1",
+    "material-design-icons-iconfont": "^4.0.5",
+    "vue": "2.5.18",
+    "vue-router": "^3.0.1",
+    "vue-server-renderer": "2.5.18",
+    "vuetify": "^1.5.2",
+    "vuex": "^3.1.0",
+    "vuex-router-sync": "^5.0.0"
+  },
+  "devDependencies": {
+    "@babel/helper-plugin-utils": "^7.0.0",
+    "@vue/cli-plugin-babel": "^3.4.0",
+    "@vue/cli-plugin-eslint": "^3.4.0",
+    "@vue/cli-service": "^3.4.0",
+    "cross-env": "^5.2.0",
+    "lodash.merge": "^4.6.1",
+    "npm-run-all": "^4.1.5",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "vue-cli-plugin-vuetify": "^0.4.6",
+    "vue-template-compiler": "2.5.18",
+    "vuetify-loader": "^1.0.5",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
