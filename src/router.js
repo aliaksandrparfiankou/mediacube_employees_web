@@ -35,6 +35,11 @@ export function createRouter() {
                 component: () => import('./pages/Employees.vue')
             },
             {
+                path: '/employee/add',
+                name: 'employee_add',
+                component: () => import('./pages/EmployeeAdd.vue')
+            },
+            {
                 path: '*',
                 component: () => import('./pages/404.vue')
             }

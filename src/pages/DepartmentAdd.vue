@@ -55,7 +55,7 @@
                         this.$notify({
                             type: 'error',
                             title: 'Error',
-                            text: 'Validation error.'
+                            text: 'Validation error. \n' + JSON.stringify(error.response.data)
                         })
                     } else {
                         this.$notify({

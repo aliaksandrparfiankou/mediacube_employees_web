@@ -3,6 +3,7 @@ import axios from 'axios'
 let API_URL = `${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_VERSION}`
 
 if (!process.env.VUE_APP_API_URL) {
+    // todo: remove it
     API_URL = 'https://api.jjj.by/v1_0'
 }
 
@@ -10,9 +11,9 @@ function genApiUrl(endpoint) {
     return `${API_URL}/${endpoint}`
 }
 
-function preparePaginationRequestParams(pageNumber) {
+function preparePaginationRequestParams(pageNumber, count) {
     const params = {
-        count: 15,
+        count: count || 15,
     }
 
     if (pageNumber) {
@@ -38,8 +39,8 @@ export function fetchEmployees(pageNumber) {
     })
 }
 
-export function fetchDepartments(pageNumber) {
-    const params = preparePaginationRequestParams(pageNumber)
+export function fetchDepartments(pageNumber, count) {
+    const params = preparePaginationRequestParams(pageNumber, count)
 
     return axios.get(genApiUrl('departments.get'), {
         params,
@@ -60,6 +61,10 @@ export function removeDepartment(id) {
 
 export function addDepartment(data) {
     return axios.post(genApiUrl('department.add'), data)
+}
+
+export function addEmployee(data) {
+    return axios.post(genApiUrl('employee.add'), data)
 }
 
 

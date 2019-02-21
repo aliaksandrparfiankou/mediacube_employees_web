@@ -11,6 +11,7 @@ export function createStore () {
             pageNumber: null,
             employees: null,
             departments: null,
+            allDepartments: null,
         },
         actions: {
             fetchCompany ({ commit }, pageNumber) {
@@ -37,6 +38,13 @@ export function createStore () {
                     })
                 })
             },
+            fetchAllDepartments ({ commit }) {
+                return fetchDepartments(1, 9999).then(response => {
+                    commit('setAllDepartments', {
+                        allDepartments: response.data
+                    })
+                })
+            },
             removeEmployee({}, { id, callback, errorCallback }) {
                 return removeEmployee(id).then(() => {
                     callback()
@@ -47,7 +55,6 @@ export function createStore () {
             },
             removeDepartment({}, { id, callback, errorCallback }) {
                 return removeDepartment(id).then(response => {
-                    // todo: if status === 200
                     callback()
                 }).catch(error => {
                     const response = error.response
@@ -64,6 +71,9 @@ export function createStore () {
             },
             setDepartments (state, { departments }) {
                 Vue.set(state, 'departments', departments)
+            },
+            setAllDepartments (state, { allDepartments }) {
+                Vue.set(state, 'allDepartments', allDepartments)
             },
             setPageNumber(state, { pageNumber }) {
                 Vue.set(state, 'pageNumber', pageNumber)

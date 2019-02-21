@@ -1,5 +1,11 @@
 <template>
     <div class="page">
+        <div class="page__header">
+            <v-btn flat :to="{name: 'employee_add'}" color="green">
+                <v-icon>add</v-icon>
+                <span>Add</span>
+            </v-btn>
+        </div>
         <div class="page__body" v-if="employees">
             <v-data-table
                     :headers="headers"
