@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { fetchCompany } from './api'
+import {fetchCompany, fetchDepartments, fetchEmployees, removeDepartment, removeEmployee} from './api'
 
 Vue.use(Vuex)
 
@@ -9,6 +9,8 @@ export function createStore () {
         state: {
             company: null,
             pageNumber: null,
+            employees: null,
+            departments: null,
         },
         actions: {
             fetchCompany ({ commit }, pageNumber) {
@@ -18,11 +20,50 @@ export function createStore () {
                         company: response.data
                     })
                 })
+            },
+            fetchEmployees ({ commit }, pageNumber) {
+                commit('setPageNumber', { pageNumber })
+                return fetchEmployees(pageNumber).then(response => {
+                    commit('setEmployees', {
+                        employees: response.data
+                    })
+                })
+            },
+            fetchDepartments ({ commit }, pageNumber) {
+                commit('setPageNumber', { pageNumber })
+                return fetchDepartments(pageNumber).then(response => {
+                    commit('setDepartments', {
+                        departments: response.data
+                    })
+                })
+            },
+            removeEmployee({}, { id, callback, errorCallback }) {
+                return removeEmployee(id).then(() => {
+                    callback()
+                }).catch(error => {
+                    const response = error.response
+                    errorCallback(response)
+                })
+            },
+            removeDepartment({}, { id, callback, errorCallback }) {
+                return removeDepartment(id).then(response => {
+                    // todo: if status === 200
+                    callback()
+                }).catch(error => {
+                    const response = error.response
+                    errorCallback(response)
+                })
             }
         },
         mutations: {
             setCompany (state, { company }) {
                 Vue.set(state, 'company', company)
+            },
+            setEmployees (state, { employees }) {
+                Vue.set(state, 'employees', employees)
+            },
+            setDepartments (state, { departments }) {
+                Vue.set(state, 'departments', departments)
             },
             setPageNumber(state, { pageNumber }) {
                 Vue.set(state, 'pageNumber', pageNumber)

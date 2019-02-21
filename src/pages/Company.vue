@@ -10,7 +10,9 @@
                 <template slot="items" slot-scope="props">
                     <td>{{ props.item.first_name }} {{ props.item.middle_name }} {{ props.item.last_name }}</td>
                     <td :key="department.id" v-for="department in company.departments">
-                        <div class="icon--done" v-if="props.item.department_ids.includes(department.id)">V</div>
+                        <div class="icon--done" v-if="props.item.department_ids.includes(department.id)">
+                            <v-icon color="green">done</v-icon>
+                        </div>
                     </td>
                 </template>
             </v-data-table>
@@ -29,7 +31,7 @@
         data() {
             return {
                 pagination: {
-                    page: this.$store.state.pageNumber || 1,
+                    page: parseInt(this.$store.state.pageNumber) || 1,
                     rowsPerPage: 15,
                 }
             }
@@ -39,7 +41,7 @@
                 return this.$store.state.company
             },
             headers() {
-                if (!this.company) {
+                if (!this.company || !this.company.departments) {
                     return []
                 }
 
@@ -56,7 +58,7 @@
                 }))
             },
             items() {
-                if (!this.company) {
+                if (!this.company || !this.company.employees) {
                     return []
                 }
 
@@ -83,7 +85,7 @@
     }
 </script>
 
-<style>
+<style lang="scss" scoped>
     .icon--done {
         text-align: center;
     }

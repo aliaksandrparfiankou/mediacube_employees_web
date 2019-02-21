@@ -25,6 +25,11 @@ export function createRouter() {
                 component: () => import('./pages/Departments.vue')
             },
             {
+                path: '/department/add',
+                name: 'department_add',
+                component: () => import('./pages/DepartmentAdd.vue')
+            },
+            {
                 path: '/employees/:pageNumber?',
                 name: 'employees',
                 component: () => import('./pages/Employees.vue')
