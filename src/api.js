@@ -58,7 +58,7 @@ export function fetchDepartment(id) {
 }
 
 export function fetchEmployee(id) {
-    return axios.get(genApiUrl('department.get'), {
+    return axios.get(genApiUrl('employee.get'), {
         params: {
             id
         }

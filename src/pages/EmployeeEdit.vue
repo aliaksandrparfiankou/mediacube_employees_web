@@ -17,8 +17,6 @@
                             v-validate="'required|max:32'"
                     ></v-text-field>
                     <v-text-field
-                            :autofocus="true"
-                            :validate-on-blur="true"
                             :aria-required="true"
                             v-model="last_name"
                             :counter="maxLastName"
@@ -30,7 +28,6 @@
                             :error-messages="errors.collect('last_name')"
                     ></v-text-field>
                     <v-text-field
-                            :autofocus="true"
                             :validate-on-blur="true"
                             :aria-required="false"
                             v-model="middle_name"
@@ -40,6 +37,16 @@
                             data-vv-name="middle_name"
                             :error-messages="errors.collect('middle_name')"
                             v-validate="'max:32'"
+                    ></v-text-field>
+                    <v-text-field
+                            :aria-required="false"
+                            v-model="salary"
+                            :counter="maxSalaryCount"
+                            :rules="salaryRules"
+                            label="Salary"
+                            data-vv-name="salary"
+                            :error-messages="errors.collect('salary')"
+                            v-validate="'max:6'"
                     ></v-text-field>
                     <v-select
                         :items="genderItems"
@@ -71,7 +78,7 @@
 </template>
 
 <script>
-    import { addEmployee } from '../api'
+    import { editEmployee } from '../api'
     import Vue from 'vue';
     import VeeValidate from 'vee-validate';
 
@@ -82,16 +89,19 @@
             validator: 'new'
         },
         asyncData({ store, route }) {
-            // return Promise.all([
-                return store.dispatch('fetchEmployee', route.params.id);
-                // store.dispatch('fetchAllDipartments'),
-            // ])
+            // todo: remove two requests and update API to return all required data in one request
+            return Promise.all([
+                store.dispatch('fetchEmployee', route.params.id),
+                store.dispatch('fetchAllDepartments', route.params.id),
+            ])
         },
         data() {
             return {
-                first_name: '',
-                last_name: '',
-                middle_name: '',
+                first_name: this.$store.state.employee.first_name,
+                last_name: this.$store.state.employee.last_name,
+                middle_name: this.$store.state.employee.middle_name,
+                salary: this.$store.state.employee.salary,
+                maxSalaryCount: 6,
                 firstNameRules: [
                     v => !!v || 'Name is required',
                     v => (v && v.length <= 32) || 'Name must be less than 32 characters'
@@ -103,13 +113,16 @@
                 middleNameRules: [
                     v => (v && v.length > 32 && 'Name must be less than 32 characters') || true
                 ],
+                salaryRules: [
+                    v => (v && v.length > 6 && 'Name must be less than 6 characters') || true
+                ],
                 departmentIdsRules: [
                   v => !!v || 'Departments field is required.',
                 ],
                 maxFirstName: 32,
                 maxLastName: 64,
                 maxMiddleName: 32,
-                gender: null,
+                gender: this.$store.state.employee.gender,
                 genderItems: [{
                     text: 'None',
                     value: null,
@@ -123,7 +136,9 @@
                     text: 'Sexless',
                     value: 3,
                 }],
-                departmentIds: '',
+                departmentIds: this.$store.state.employee.departments.map(department => {
+                    return department.id
+                }),
             }
         },
         computed: {
@@ -157,7 +172,10 @@
                 if (this.gender) {
                     params.gender = this.gender
                 }
-                addEmployee(params).then(() => {
+                if (this.salary) {
+                    params.salary = this.salary
+                }
+                editEmployee(params).then(() => {
                     this.$notify({
                         type: 'success',
                         title: 'Done',

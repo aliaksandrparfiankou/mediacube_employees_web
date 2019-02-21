@@ -17,8 +17,6 @@
                             v-validate="'required|max:32'"
                     ></v-text-field>
                     <v-text-field
-                            :autofocus="true"
-                            :validate-on-blur="true"
                             :aria-required="true"
                             v-model="last_name"
                             :counter="maxLastName"
@@ -30,8 +28,6 @@
                             :error-messages="errors.collect('last_name')"
                     ></v-text-field>
                     <v-text-field
-                            :autofocus="true"
-                            :validate-on-blur="true"
                             :aria-required="false"
                             v-model="middle_name"
                             :counter="maxFirstName"
@@ -40,6 +36,16 @@
                             data-vv-name="middle_name"
                             :error-messages="errors.collect('middle_name')"
                             v-validate="'max:32'"
+                    ></v-text-field>
+                    <v-text-field
+                            :aria-required="false"
+                            v-model="salary"
+                            :counter="maxSalaryCount"
+                            :rules="salaryRules"
+                            label="Salary"
+                            data-vv-name="salary"
+                            :error-messages="errors.collect('salary')"
+                            v-validate="'max:6'"
                     ></v-text-field>
                     <v-select
                         :items="genderItems"
@@ -89,6 +95,8 @@
                 first_name: '',
                 last_name: '',
                 middle_name: '',
+                salary: '',
+                maxSalaryCount: 6,
                 firstNameRules: [
                     v => !!v || 'Name is required',
                     v => (v && v.length <= 32) || 'Name must be less than 32 characters'
@@ -99,6 +107,9 @@
                 ],
                 middleNameRules: [
                     v => (v && v.length > 32 && 'Name must be less than 32 characters') || true
+                ],
+                salaryRules: [
+                    v => (v && v.length > 6 && 'Name must be less than 6 characters') || true
                 ],
                 departmentIdsRules: [
                   v => !!v || 'Departments field is required.',
@@ -146,6 +157,9 @@
                     last_name: this.last_name,
                     middle_name: this.middle_name,
                     department_ids: this.departmentIds,
+                }
+                if (this.salary) {
+                    params.salary = this.salary
                 }
                 if (this.gender) {
                     params.gender = this.gender
