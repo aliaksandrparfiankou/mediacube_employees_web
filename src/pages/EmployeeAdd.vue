@@ -141,20 +141,23 @@
             submit () {
                 this.$validator.validateAll()
                 // todo: do not sublit while had errors
-                addEmployee({
+                const params = {
                     first_name: this.first_name,
                     last_name: this.last_name,
                     middle_name: this.middle_name,
-                    gender: this.gender,
-                    department_ids: this.department_ids,
-                }).then(() => {
+                    department_ids: this.departmentIds,
+                }
+                if (this.gender) {
+                    params.gender = this.gender
+                }
+                addEmployee(params).then(() => {
                     this.$notify({
                         type: 'success',
                         title: 'Done',
-                        text: 'Department had been successfully added.'
+                        text: 'Employee had been successfully added.'
                     })
                     this.$router.push({
-                        name: 'departments'
+                        name: 'employees'
                     })
                 }).catch(error => {
                     if (error.response.status === 422) {
