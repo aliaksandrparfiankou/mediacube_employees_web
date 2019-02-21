@@ -166,8 +166,10 @@
                     id: this.employee.id,
                     first_name: this.first_name,
                     last_name: this.last_name,
-                    middle_name: this.middle_name,
                     department_ids: this.departmentIds,
+                }
+                if (this.middle_name) {
+                    params.middle_name = this.middle_name
                 }
                 if (this.gender) {
                     params.gender = this.gender

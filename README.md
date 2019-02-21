@@ -19,8 +19,8 @@ API Request docs listed inside controllers.
 - [x] Add department form
 - [x] Remove employee
 - [x] Remove department
-- [ ] Edit employee form
-- [ ] Edit department form
+- [x] Edit employee form
+- [x] Edit department form
 
 # What I didn't do(aka Diseases)
 - No tests, because I didn't have time
