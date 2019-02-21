@@ -7,8 +7,10 @@ Web side of test task of employers grid system
 ### Lightweight API [https://github.com/aliaksandrparfiankou/mediacube_employers_api](https://github.com/aliaksandrparfiankou/mediacube_employers_api)
 
 # [DEMO](https://jjj.by)
+Web app consists of two parts: API and WEB side.
+API Request docs listed inside controllers.
 
-# What I've done
+# What is done
 - [x] Company page(grid)
 - [x] Employees page
 - [x] Departments page
@@ -28,7 +30,7 @@ Web side of test task of employers grid system
 - Creepy validation, see above
 
 # Implementation time
-6-7-ish hours
+6-7-ish hours. Total time on whole project is 15-16hours including deploying
 
 # My open-source projects
 ### [Fistache](https://github.com/fistache/fistache)

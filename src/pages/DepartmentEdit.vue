@@ -14,8 +14,8 @@
                             label="Department name"
                     ></v-text-field>
                     <v-btn @click="submit" flat color="green">
-                        <v-icon>add</v-icon>
-                        <span>Create</span>
+                        <v-icon>edit</v-icon>
+                        <span>Edit</span>
                     </v-btn>
                 </v-form>
             </v-container>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-    import { addDepartment } from '../api'
+    import { editDepartment } from '../api'
 
     export default {
         asyncData({ store, route }) {
@@ -32,7 +32,7 @@
         },
         data() {
             return {
-                name: '',
+                name: this.$store.state.department.name,
                 nameRules: [
                     v => !!v || 'Name is required',
                     v => (v && v.length <= 64) || 'Name must be less than 64 characters'
@@ -42,11 +42,13 @@
         },
         computed: {
             department() {
+                return this.$store.state.department
             }
         },
         methods: {
             submit () {
-                addDepartment({
+                editDepartment({
+                    id: this.department.id,
                     name: this.name,
                 }).then(() => {
                     this.$notify({

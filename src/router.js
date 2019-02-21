@@ -30,6 +30,11 @@ export function createRouter() {
                 component: () => import('./pages/DepartmentAdd.vue')
             },
             {
+                path: '/department/edit/:id',
+                name: 'department_edit',
+                component: () => import('./pages/DepartmentEdit.vue')
+            },
+            {
                 path: '/employees/:pageNumber?',
                 name: 'employees',
                 component: () => import('./pages/Employees.vue')
@@ -38,6 +43,11 @@ export function createRouter() {
                 path: '/employee/add',
                 name: 'employee_add',
                 component: () => import('./pages/EmployeeAdd.vue')
+            },
+            {
+                path: '/employee/edit/:id',
+                name: 'employee_edit',
+                component: () => import('./pages/EmployeeEdit.vue')
             },
             {
                 path: '*',

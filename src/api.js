@@ -2,6 +2,8 @@ import axios from 'axios'
 
 let API_URL = `${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_VERSION}`
 
+// todo: make dedicated files for company, employee and departments
+
 if (!process.env.VUE_APP_API_URL) {
     // todo: remove it
     API_URL = 'https://api.jjj.by/v1_0'
@@ -47,6 +49,22 @@ export function fetchDepartments(pageNumber, count) {
     })
 }
 
+export function fetchDepartment(id) {
+    return axios.get(genApiUrl('department.get'), {
+        params: {
+            id
+        }
+    })
+}
+
+export function fetchEmployee(id) {
+    return axios.get(genApiUrl('department.get'), {
+        params: {
+            id
+        }
+    })
+}
+
 export function removeEmployee(id) {
     return axios.post(genApiUrl('employee.remove'), {
         id
@@ -63,8 +81,16 @@ export function addDepartment(data) {
     return axios.post(genApiUrl('department.add'), data)
 }
 
+export function editDepartment(data) {
+    return axios.post(genApiUrl('department.edit'), data)
+}
+
 export function addEmployee(data) {
     return axios.post(genApiUrl('employee.add'), data)
+}
+
+export function editEmployee(data) {
+    return axios.post(genApiUrl('employee.edit'), data)
 }
 
 

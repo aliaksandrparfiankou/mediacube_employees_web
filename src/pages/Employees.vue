@@ -33,7 +33,7 @@
                             <v-btn flat small color="error" @click="removeEmployee(props.item.id)">
                                 <v-icon>close</v-icon>
                             </v-btn>
-                            <v-btn flat small color="blue" @click="editImployee(props.item.id)">
+                            <v-btn :to="{name: 'employee_edit', params: {id: props.item.id}}" flat small color="blue" @click="editImployee(props.item.id)">
                                 <v-icon>edit</v-icon>
                             </v-btn>
                         </v-btn-toggle>
